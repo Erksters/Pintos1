@@ -19,7 +19,9 @@ FirstName LastName <email@k-state.edu>
 >> preparing your submission, other than the Pintos documentation,
 >> course text, lecture notes, and course staff.
 
+https://github.com/kinux98/pintos-project-1
 
+https://jeason.gitbooks.io/pintos-reference-guide-sysu/content/Debugging-tools-guide.html
                  ALARM CLOCK
                  ===========
 
