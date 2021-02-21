@@ -6,8 +6,10 @@ CIS 520 - Programming Project #1
 
 >> Fill in the names and email addresses of your group members.
 
-FirstName LastName <email@k-state.edu>
-FirstName LastName <email@k-state.edu>
+Erick Saenz-Gardea <erksters@ksu.edu>
+Jason Byrne <jjbyrne@ksu.edu>
+Austin Hess <ahess@ksu.edu>
+
 ...
 
 ---- PRELIMINARIES ----
@@ -19,7 +21,8 @@ FirstName LastName <email@k-state.edu>
 >> preparing your submission, other than the Pintos documentation,
 >> course text, lecture notes, and course staff.
 
-
+Inspiration came from this repository: https://github.com/kinux98/pintos-project-1
+https://jeason.gitbooks.io/pintos-reference-guide-sysu/content/Debugging-tools-guide.html
                  ALARM CLOCK
                  ===========
 
@@ -29,31 +32,39 @@ FirstName LastName <email@k-state.edu>
 >> `struct' member, global or static variable, `typedef', or
 >> enumeration.  Identify the purpose of each in 25 words or less.
 
+struct sleeping_thread - A struct defined so that the sleep_list could be populated and so that we can define a thread that is sleeping. It also provides the sleeping threads with a timer of how long it is asleep.
+static struct list sleep_list - A list that is used to define which threads are blocked.
 
 ---- ALGORITHMS ----
 
 >> A2: Briefly describe what happens in a call to your timer_sleep(),
 >> including the effects of the timer interrupt handler.
 
+It starts by allocating the pages that contain zeros to the sleeping thread and then asserting that it's not null. It then gets the timer ticks needed to sleep the thread. From there it creates another struct thread for the current thread and checks to make sure that the current thread's interrupt level is currently on. Then it calculates the timer ticks neeeded and adds the thread to the list in order (so that you only need to check the head of the list instead of iterating through it all every time). Finally it blocks the created thread so that it does not fire off while other threads are currently running.
+
 >> A3: What steps are taken to minimize the amount of time spent in
 >> the timer interrupt handler?
 
+It minimizes the amount of time spent in the timer interrupt handler becauase it only checks the head, or the first element, of the list every time and if it does not match the condition of the current ticks being the same as the sleeping ticks, it breaks the loop and continues. The only case where you would be making more than one check in the list would be if a thread was just removed from the list. This is an improvement because we are not wasting time looping through the entire list.
 
 ---- SYNCHRONIZATION ----
 
 >> A4: How are race conditions avoided when multiple threads call
 >> timer_sleep() simultaneously?
 
+Race conditions are avoided because we set the interrupt level to off, which means the process becomes atomic. Therefore, handling the problem since the operations would be handled separatley.
 
 >> A5: How are race conditions avoided when a timer interrupt occurs
 >> during a call to timer_sleep()?
 
+While the timer_sleep function is processing the interrupt levels are set to disabled in order to prevent them from being interrupted while running.
 
 ---- RATIONALE ----
 
 >> A6: Why did you choose this design?  In what ways is it superior to
 >> other designs that you considered?
 
+We chose this design because it improved the overall running time of the process. Other designs that were considered had the program iterating through the entire list of threads every single time timer_interrupt was called, which in the long run would bog the system down. This design makes it so every call to timer_interrupt only checks the head of the list, or the element with the shortest wake up time, and then breaks out.
 
 
              PRIORITY SCHEDULING
@@ -64,6 +75,13 @@ FirstName LastName <email@k-state.edu>
 >> B1: Copy here the declaration of each new or changed `struct' or
 >> `struct' member, global or static variable, `typedef', or
 >> enumeration.  Identify the purpose of each in 25 words or less.
+
+#define NICE_MIN - 
+#define NICE_DEFAULT - 
+#define NICE_MAX - 
+int nice - 
+int recent_cpu -
+int load_avg - 
 
 >> B2: Explain the data structure used to track priority donation.
 
