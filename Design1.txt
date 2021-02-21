@@ -6,10 +6,16 @@ CIS 520 - Programming Project #1
 
 >> Fill in the names and email addresses of your group members.
 
+<<<<<<< HEAD
 Erick Saenz-Gardea <erksters@ksu.edu>
 Jason Byrne <jjbyrne@ksu.edu>
 Austin Hess <ahess@ksu.edu>
 
+=======
+Jason Byrne <jjbyrne@k-state.edu>
+Erick Saenz erksters@ksu.edu
+FirstName LastName <email@k-state.edu>
+>>>>>>> ec62655d1a3635e4e8b1777ad35abe92ce375189
 ...
 
 ---- PRELIMINARIES ----
@@ -21,7 +27,12 @@ Austin Hess <ahess@ksu.edu>
 >> preparing your submission, other than the Pintos documentation,
 >> course text, lecture notes, and course staff.
 
+<<<<<<< HEAD
 Inspiration came from this repository: https://github.com/kinux98/pintos-project-1
+=======
+https://github.com/kinux98/pintos-project-1
+
+>>>>>>> ec62655d1a3635e4e8b1777ad35abe92ce375189
 https://jeason.gitbooks.io/pintos-reference-guide-sysu/content/Debugging-tools-guide.html
                  ALARM CLOCK
                  ===========
