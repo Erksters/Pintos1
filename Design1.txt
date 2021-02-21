@@ -84,6 +84,21 @@ int nice -
 int recent_cpu -
 int load_avg - 
 
+enum intr_level 
+  {
+    INTR_OFF,             /* Interrupts disabled. */
+    INTR_ON               /* Interrupts enabled. */
+  };
+
+struct donated_lock
+  {
+    struct lock *lock;
+    struct thread *thread_donated;
+    struct list_elem elem;
+  };
+  
+added to : struct semaphore_elem -> priority   /* waiting thread's priority. */
+
 >> B2: Explain the data structure used to track priority donation.
 
 
