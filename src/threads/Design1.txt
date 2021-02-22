@@ -130,7 +130,13 @@ For Semaphore: Locks have a semaphore attribute. Semaphore have values of priori
 >> B4: Describe the sequence of events when a call to lock_acquire()
 >> causes a priority donation.  How is nested donation handled?
 
-lock_acquire firsts asserts and makes sure that the lock is not null, that there are no external interrupts, and that the current thread is not being held by a lock already. It then checks to make sure that the thread holding the lock exists. Next it checks whether or not the priority of the thread holding the lock is less than the actual priority. From there it creates a donated lock and inserts it into the list. Nested donations are handled because the thread struct has a “donated_locks” member which is a list of donations for that particular thread, which is then passed into the list insertion method and it will loop through each of the donations.
+lock_acquire firsts asserts and makes sure that the lock is not null, that there are no external interrupts,
+     and that the current thread is not being held by a lock already. It then checks to make sure that the thread 
+         holding the lock exists. Next it checks whether or not the priority of the thread holding the lock is
+             less than the actual priority. From there it creates a donated lock and inserts it into the list.
+                 Nested donations are handled because the thread struct has a “donated_locks” member which is a list of
+                     donations for that particular thread, which is then passed into the list insertion method 
+                         and it will loop through each of the donations.
 
 >> B5: Describe the sequence of events when lock_release() is called
 >> on a lock that a higher-priority thread is waiting for.
@@ -146,7 +152,10 @@ When a thread has a lock and tries to release it, the thread checks to see if a 
 >> how your implementation avoids it.  Can you use a lock to avoid
 >> this race?
 
-A potential race condition would be if we write the priority for a thread at the same time a potential interrupt does, meaning we wouldn’t know which priority was set for the thread. This is fixed by sleeping the thread so that the interrupt does not set the priority. As for a lock, it cannot be used because interrupt handlers are unable to use locks.
+A potential race condition would be if we write the priority for a thread at the same time a potential interrupt does,
+    meaning we wouldn’t know which priority was set for the thread. This is fixed by sleeping the thread so that
+        the interrupt does not set the priority. As for a lock, it cannot be used because interrupt handlers are 
+            unable to use locks.
 
 
 ---- RATIONALE ----
@@ -154,13 +163,10 @@ A potential race condition would be if we write the priority for a thread at the
 >> B7: Why did you choose this design?  In what ways is it superior to
 >> another design you considered?
 
-We initially looked online for github repos that could help guide us.
- Eventually we found a repo that passed the majority of tests, so we
-  decided this would be the best fit for this project. While we saw other
-   examples online, they would only pass 6 out of the 28 tests. 
-Other designs were definitely easier to read and understand but would
- ultimately hurt our grade due to poor implementation at the time of execution.
-  As far as we could tell, the other repos attempted to create a similar
-   scheduling environments so there weren't any major differences when 
-   considering superiority.
+Being able to quantify priority via integer values and doubly linked list is an easy way to
+    optimize the search for the next smallest value if they links are sorted in ascending/descending order.
+        Inserting items into this type of list will be slower than other designs. The Inspiration for this design
+             came from an online resource we found. While we saw other examples online, they would only pass 6 out 
+                 of the 28 tests. As far as we could tell, the other repos attempted to create a similar scheduling environments 
+                     so there weren't any major differences when considering superiority.
   
