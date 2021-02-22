@@ -143,3 +143,9 @@ We initially looked online for github repos that could help guide us.
  Eventually we found a repo that passed the majority of tests, so we
   decided this would be the best fit for this project. While we saw other
    examples online, they would only pass 6 out of the 28 tests. 
+Other designs were definitely easier to read and understand but would
+ ultimately hurt our grade due to poor implementation at the time of execution.
+  As far as we could tell, the other repos attempted to create a similar
+   scheduling environments so there weren't any major differences when 
+   considering superiority.
+  
